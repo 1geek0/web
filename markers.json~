@@ -1,0 +1,26 @@
+markers = [
+   {
+     "name": "Pahine",
+     "url": "https://en.wikipedia.org/wiki/Canada",
+     "lat": 19.8980372,
+     "lng": 73.5592308
+   },
+   {
+     "name": "Talwade",
+     "url": "https://en.wikipedia.org/wiki/Anguilla",
+     "lat": 19.974628,
+     "lng": 73.5553604
+   },
+   {
+     "name": "Khambale",
+     "url": "https://en.wikipedia.org/wiki/Barbados",
+     "lat": 19.9537085,
+     "lng": 73.5867436
+   },
+   {
+     "name": "Sapgaon Phata",
+     "url": "https://en.wikipedia.org/wiki/United_States",
+     "lat": 37.090240,
+     "lng": -95.712891
+   }
+];

@@ -1,0 +1,17 @@
+<html><head>
+<link rel="stylesheet"
+href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css"
+/>
+<script
+src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+<script type='text/javascript'
+src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js'></script>
+</head>
+<body>
+      <div id="map" style="height: 500px; border: 1px solid
+#AAA;"></div>
+<script type='text/javascript' src='markers.json'></script>
+<script type='text/javascript' src='leaf-demo.js'></script>
+</body>
+</html>
