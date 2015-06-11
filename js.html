@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>Amazon DynamoDB Sample</title>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.33.min.js"></script>
+</head>
+<body>
+<h1>Demo</h1>
+<script type="text/javascript">
+var interval = setInterval(function () {getIn()}, 500);
+var before;
+function getIn(){
+	// See the Configuring section to configure credentials in the SDK
+    AWS.config.accessKeyId = 'AKIAIZRNB22INATCKSVA';
+    AWS.config.secretAccessKey = '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';
+    AWS.config.region = 'us-east-1';
+    var params = {
+    	TableName: 'Ashioto_test',
+    	IndexName : 'GateID-index',
+    	KeyConditions :
+    	{
+    		"GateID" :
+    		{
+    			"AttributeValueList" : [
+    			{
+    				"N" : '1'
+    			}
+    			],
+    			"ComparisonOperator" : "EQ"
+    		}
+    	},
+    }
+    var db = new AWS.DynamoDB();
+    db.query(params, function(err, data){
+    	if(err) console.log(err, err.stack);
+    	else{
+    		for (var i=0; i < data.Items.length; i++) {
+			  console.log(data.Items[i].In.N);
+			};
+    	} 
+    });
+   }
+</script>	
+</body>
+</html>
