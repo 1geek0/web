@@ -6,12 +6,20 @@
 <body>
 <h1>Demo</h1>
 <script type="text/javascript">
+var once = 1;
 var interval = setInterval(function () {getIn()}, 500);
-var before;
+var before = 1;
 function getIn(){
 	// See the Configuring section to configure credentials in the SDK
+    /*
     AWS.config.accessKeyId = 'AKIAIZRNB22INATCKSVA';
-    AWS.config.secretAccessKey = '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';
+        AWS.config.secretAccessKey = 'emBPpVE2N1MJrEc5Xc7rHL+LYMXYrjBmAp8h7NK7';
+        AWS.config.region = 'us-east-1';*/
+    
+    var cred = new AWS.CognitoIdentityCredentials({
+    	IdentityPoolId: 'us-east-1:08e41de7-9cb0-40d6-9f04-6f8956ed25bb',
+    });
+    AWS.config.credentials = cred;
     AWS.config.region = 'us-east-1';
     var params = {
     	TableName: 'Ashioto_test',
@@ -33,9 +41,19 @@ function getIn(){
     db.query(params, function(err, data){
     	if(err) console.log(err, err.stack);
     	else{
+    		if(data.Items.length > before){
+    		if(once == 1){
     		for (var i=0; i < data.Items.length; i++) {
 			  console.log(data.Items[i].In.N);
+			  before = data.Items.length;
+			  once = 2;
 			};
+			}
+			else if(once == 2){
+				console.log(data.Items[before].In.N);
+				once = 3;
+			}
+			}
     	} 
     });
    }
