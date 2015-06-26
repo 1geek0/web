@@ -6,6 +6,6 @@ AWS.config.region = 'us-east-1';
 
 var db = AWS.DynamoDB({region : 'us-east-1'});
 AWS.config.db = {region : 'us-east-1'};
-db.listTables(function(err, data) {
-  console.log(data.TableNames);
+db.listTables(function (err, data) {
+    console.log(data.TableNames);
 });

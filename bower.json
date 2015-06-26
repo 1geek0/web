@@ -1,0 +1,34 @@
+{
+  "name": "ashioto_data",
+  "version": "0.1",
+  "homepage": "https://github.com/NilayKulkarni/web",
+  "description": "ashioto data",
+  "main": "js.html",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "keywords": [
+    "ashioto",
+    "crowd",
+    "management",
+    "realtime"
+  ],
+  "authors": [
+    "Geeky Dreams Inc."
+  ],
+  "license": "GNU GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  }
+}

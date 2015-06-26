@@ -4,26 +4,39 @@
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.33.min.js"></script>
 </head>
 <body>
-<h1>Demo</h1>
+    <div id="inDiv">
+        <table id="inTable" border="1" width="400">
+            <th id="inHeader">In</th>
+            <th id="outHeader">Out</th>
+        </table>
+        <style type="text/css">
+            #inTable{
+                align-self: center
+                align-content: center
+                margin-top: 20px;
+                margin-left: 300px;
+            }
+        </style>
+    </div>
 <script type="text/javascript">
-var once = 1;
-var interval = setInterval(function () {getIn()}, 500);
-var before = 1;
-function getIn(){
-	// See the Configuring section to configure credentials in the SDK
-    /*
-    AWS.config.accessKeyId = 'AKIAIZRNB22INATCKSVA';
-        AWS.config.secretAccessKey = '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';
-        AWS.config.region = 'us-east-1';*/
+    var once = 1;
+    var inArray = [];
+    var outArray = [];
     
+    var interval = setInterval(function () {getIn()}, 1000);
+    var before = 0;
+    var n = 0;
+    var dbTable = document.getElementById("inTable");
+    var outHead = document.getElementById("outHeader");
+function getIn(){
     var cred = new AWS.CognitoIdentityCredentials({
     	IdentityPoolId: 'us-east-1:08e41de7-9cb0-40d6-9f04-6f8956ed25bb',
     });
     AWS.config.credentials = cred;
-    AWS.config.region = 'us-east-1';
+    AWS.config.region = 'us-east-1';		
     var params = {
-    	TableName: 'Ashioto_test',
-    	IndexName : 'GateID-index',
+    	TableName: 'test_gate',
+    	IndexName : 'GateID-n-index',
     	KeyConditions :
     	{
     		"GateID" :
@@ -36,6 +49,7 @@ function getIn(){
     			"ComparisonOperator" : "EQ"
     		}
     	},
+    	ScanIndexForward: true
     }
     var db = new AWS.DynamoDB();
     db.query(params, function(err, data){
@@ -44,14 +58,36 @@ function getIn(){
     		if(data.Items.length > before){
     		if(once == 1){
     		for (var i=0; i < data.Items.length; i++) {
-			  console.log(data.Items[i].In.N);
-			  before = data.Items.length;
-			  once = 2;
+    			
+                //In Initialize
+    			inArray.push(data.Items[i].In.N);
+    			inArray.sort();
+                var inRow = dbTable.insertRow(-1);
+                var inCell = inRow.insertCell(0);
+                inCell.innerHTML = data.Items[i].In.N;
+    			console.log(data.Items[i].In.N);
+                
+                //ut 
+                outArray.push(data.Items[i].Out.N);
+                outArray.sort();
+                var outCell = inRow.insertCell(1);
+                outCell.innerHTML = data.Items[i].Out.N;
+                
+    			before = data.Items.length;
+    			once = 2;
+                
 			};
 			}
 			else if(once == 2){
+                //In
+                var row = dbTable.insertRow(-1);
+                var inCell = row.insertCell(0);
+                inCell.innerHTML = data.Items[before].In.N;
 				console.log(data.Items[before].In.N);
-				once = 3;
+                //Out
+                var outCell = row.insertCell(1);
+                outCell.innerHTML = data.Items[before].Out.N;
+                before = data.Items.length;
 			}
 			}
     	} 
