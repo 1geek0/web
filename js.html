@@ -35,11 +35,11 @@ function getIn(){
     AWS.config.credentials = cred;
     AWS.config.region = 'us-east-1';		
     var params = {
-    	TableName: 'test_gate',
-    	IndexName : 'GateID-n-index',
+    	TableName: 'test_gate1',
+    	IndexName : 'Plotted-n-index',
     	KeyConditions :
     	{
-    		"GateID" :
+    		"Plotted" :
     		{
     			"AttributeValueList" : [
     			{

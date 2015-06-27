@@ -15,6 +15,82 @@ src="https://sdk.amazonaws.com/js/aws-sdk-2.1.33.min.js"></script>
 #AAA;"></div>
 <a href="js.html">Script Page</a>
 <script type='text/javascript' src='markers.json'></script>
+
+<script type="text/javascript">
+    var once = 1;
+    var inArray = [];
+    var outArray = [];
+    var interval = setInterval(function () {getLast()}, 1000);
+    var before = 0;
+    var n = 0;
+    var dbTable = document.getElementById("inTable");
+    var outHead = document.getElementById("outHeader");
+    var inCnt = 0;
+    var cred = new AWS.CognitoIdentityCredentials({
+    IdentityPoolId: 'us-east-1:08e41de7-9cb0-40d6-9f04-6f8956ed25bb',
+    });
+    AWS.config.credentials = cred;
+    AWS.config.region = 'us-east-1';
+    var db = new AWS.DynamoDB();
+//    function getIn(){
+//        var params = {
+//            TableName: 'test_gate1',
+//            IndexName : 'Plotted-n-index',
+//            KeyConditions :
+//            {
+//                "Plotted" :
+//                {
+//                    "AttributeValueList" : [
+//                        {
+//                            "N" : '1'
+//                        }
+//                    ],
+//                    "ComparisonOperator" : "EQ"
+//                }
+//            },
+//            ScanIndexForward: true
+//        }
+//
+//        db.query(params, function(err, data){
+//            if(err) console.log(err, err.stack);
+//            else{
+//                if(data.Items.length > before){
+//                    if(once == 1){
+//                        for (var i=0; i < data.Items.length; i++) {
+//                            //In Initialize
+//                            inArray.push(data.Items[i].In.N);
+//                            inArray.sort();
+//                            var inRow = dbTable.insertRow(-1);
+//                            var inCell = inRow.insertCell(0);
+//                            inCell.innerHTML = data.Items[i].In.N;
+//                            console.log(data.Items[i].In.N);
+//                            //ut 
+//                            outArray.push(data.Items[i].Out.N);
+//                            outArray.sort();
+//                            var outCell = inRow.insertCell(1);
+//                            outCell.innerHTML = data.Items[i].Out.N;
+//
+//                            before = data.Items.length;
+//                            once = 2;
+//                        };
+//                    }
+//                    else if(once == 2){
+//                        //In
+//                        var row = dbTable.insertRow(-1);
+//                        var inCell = row.insertCell(0);
+//                        inCell.innerHTML = data.Items[before].In.N;
+//                        console.log(data.Items[before].In.N);
+//                        //Out
+//                        var outCell = row.insertCell(1);
+//                        outCell.innerHTML = data.Items[before].Out.N;
+//                        before = data.Items.length;
+//                    }
+//                }
+//            } 
+//        });
+//    
+    
+</script>
 <script type='text/javascript' src='leaf-demo.js'></script>
 </body>
 </html>
