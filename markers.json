@@ -1,9 +1,9 @@
 markers = [
    {
-       "name": "Pahine",
+       "name": "Winjit Tech",
        "url": "https://en.wikipedia.org/wiki/Canada",
-       "lat": 19.8980372,
-       "lng": 73.5592308,
+       "lat": 19.993207,
+       "lng": 73.743947,
        "cnt" : 0
    },
    {

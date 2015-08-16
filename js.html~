@@ -94,14 +94,13 @@ function getIn(){
     });
    }
 </script>	
-  <div>
-      <a href="https://plot.ly/~NilayKulkarni/401/" target="_blank"
-title="16 Aug Shravani Somwar Kapaleshwar" style="display: block;
-text-align: center;"><img src="https://plot.ly/~NilayKulkarni/401.png"
-alt="16 Aug Shravani Somwar Kapaleshwar" style="max-width: 100%;width:
-600px;"  width="600"
+    <div>
+        <a href="https://plot.ly/~NilayKulkarni/394/" target="_blank"
+title="15 Aug" style="display: block; text-align: center;"><img
+src="https://plot.ly/~NilayKulkarni/394.png" alt="15 Aug"
+style="max-width: 100%;"
 onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-    <script data-plotly="NilayKulkarni:401"
+    <script data-plotly="NilayKulkarni:394"
 src="https://plot.ly/embed.js" async></script>
 </div>
 
