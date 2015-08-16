@@ -4,10 +4,10 @@
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.33.min.js"></script>
 </head>
 <body>
+	<button title="Button" onclick=getIn() id="button_refresh">Refresh</button>
     <div id="inDiv">
         <table id="inTable" border="1" width="400">
             <th id="inHeader">In</th>
-            <th id="outHeader">Out</th>
         </table>
         <style type="text/css">
             #inTable{
@@ -16,18 +16,26 @@
                 margin-top: 20px;
                 margin-left: 300px;
             }
+			#button_refresh{
+				align-self: center
+				align-content: center
+				width: 80px
+				height: 50px
+			}
         </style>
     </div>
 <script type="text/javascript">
+	var refresh = document.getElementById('button_refresh');
+	getIn();
     var once = 1;
     var inArray = [];
     var outArray = [];
     
-    var interval = setInterval(function () {getIn()}, 1000);
+    var interval = setInterval(function () {getIn()}, 60000);
+	
     var before = 0;
     var n = 0;
     var dbTable = document.getElementById("inTable");
-    var outHead = document.getElementById("outHeader");
 function getIn(){
     var cred = new AWS.CognitoIdentityCredentials({
     	IdentityPoolId: 'us-east-1:08e41de7-9cb0-40d6-9f04-6f8956ed25bb',
@@ -67,12 +75,6 @@ function getIn(){
                 inCell.innerHTML = data.Items[i].In.N;
     			console.log(data.Items[i].In.N);
                 
-                //ut 
-                outArray.push(data.Items[i].Out.N);
-                outArray.sort();
-                var outCell = inRow.insertCell(1);
-                outCell.innerHTML = data.Items[i].Out.N;
-                
     			before = data.Items.length;
     			once = 2;
                 
@@ -84,10 +86,6 @@ function getIn(){
                 var inCell = row.insertCell(0);
                 inCell.innerHTML = data.Items[before].In.N;
 				console.log(data.Items[before].In.N);
-                //Out
-                var outCell = row.insertCell(1);
-                outCell.innerHTML = data.Items[before].Out.N;
-                before = data.Items.length;
 			}
 			}
     	} 
