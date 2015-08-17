@@ -8,6 +8,7 @@
     <div id="inDiv">
         <table id="inTable" border="1" width="400">
             <th id="inHeader">In</th>
+			<th id="timeHeader">Time</th>
         </table>
         <style type="text/css">
             #inTable{
@@ -30,12 +31,14 @@
     var once = 1;
     var inArray = [];
     var outArray = [];
+	var timeArray = [];
     
     var interval = setInterval(function () {getIn()}, 60000);
 	
     var before = 0;
     var n = 0;
     var dbTable = document.getElementById("inTable");
+	var timeTable = document.getElementById("timeHeader");
 function getIn(){
     var cred = new AWS.CognitoIdentityCredentials({
     	IdentityPoolId: 'us-east-1:08e41de7-9cb0-40d6-9f04-6f8956ed25bb',
@@ -66,26 +69,40 @@ function getIn(){
     		if(data.Items.length > before){
     		if(once == 1){
     		for (var i=0; i < data.Items.length; i++) {
-    			
-                //In Initialize
+    			if (data.Items[i].Date.S == "17") {
+					//code
+					//In Initialize
     			inArray.push(data.Items[i].In.N);
     			inArray.sort();
                 var inRow = dbTable.insertRow(-1);
                 var inCell = inRow.insertCell(0);
                 inCell.innerHTML = data.Items[i].In.N;
-    			console.log(data.Items[i].In.N);
                 
     			before = data.Items.length;
     			once = 2;
-                
+                //TimeStamp
+				timeArray.push(data.Items[i].Hour.S);
+				timeArray.sort();
+				//var timeRow = timeTable.insertRow(-1);
+				var timeCell = inRow.insertCell(1);
+				timeCell.innerHTML = data.Items[i].Hour.S+":"+data.Items[i].Minute.S+":"+data.Items[i].Second.S;
+				console.log(data.Items[i].Hour.S);
+				}
 			};
 			}
 			else if(once == 2){
-                //In
+				if (data.Items[i].Date.S == "17") {
+					//code
+					//In
                 var row = dbTable.insertRow(-1);
                 var inCell = row.insertCell(0);
                 inCell.innerHTML = data.Items[before].In.N;
-				console.log(data.Items[before].In.N);
+				//console.log(data.Items[before].In.N);
+				//Time
+				var timeRow = dbTable.insertRow(-1);
+				var timeCell = row.insertCell(1);
+				timeCell.innerHTML = data.Items[before].Hour.S+":"+data.Items[before].Minute.S+":"+data.Items[before].Second.S;
+				}
 			}
 			}
     	} 
