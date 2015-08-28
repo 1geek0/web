@@ -1,15 +1,18 @@
 // See post: http://asmaloney.com/2014/01/code/creating-an-interactive-map-with-leaflet-and-openstreetmap/
 
-var map = L.map( 'map', {
-    center: [19.93777, 73.5947],
-    minZoom: 2,
-    zoom: 12
-});
-
-L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
+//var map = L.map( 'map', {
+//    center: [19.93777, 73.5947],
+//    minZoom: 2,
+//    zoom: 12
+//});
+var testData = {
+    max : 8,
+    data : [{lat : 21.0349367, lng:75.791612, count : 1}]
+}
+var baseLayer = L.tileLayer( 'http://{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright" title="OpenStreetMap" target="_blank">OpenStreetMap</a> contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" title="MapQuest" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png" width="16" height="16">',
     subdomains: ['otile1','otile2','otile3','otile4']
-}).addTo( map );
+});
 
 var myURL = jQuery( 'script[src$="leaf-demo.js"]' ).attr( 'src' ).replace( 'leaf-demo.js', '' );
 
@@ -49,28 +52,46 @@ function getLast(){
                 console.log(inCnt);
             }
         });
-    mapFunc();
+ //   mapFunc();
     }
 
     
-mapFunc = function(){
-    for(var i=0; i < markers.length ; i++){
-        markers[i].cnt = inCnt;
-    }
-    for ( var i=0; i < markers.length; ++i ) 
-    {
-        markers[i].cnt = inCnt;
-       L.marker( [markers[i].lat, markers[i].lng], {icon: myIcon} )
-          .bindPopup( '<a href="' + markers[i].url + '" target="_blank">' + markers[i].name + '</a>' + '<p>' + markers[i].cnt + '</p>' )
-          .addTo( map );
-    }
+//mapFunc = function(){
+ //   for(var i=0; i < markers.length ; i++){
+ //       markers[i].cnt = inCnt;
+ //   }
+ //   for ( var i=0; i < markers.length; ++i ) 
+//    {
+    //    markers[i].cnt = inCnt;
+  //     L.marker( [markers[i].lat, markers[i].lng], {icon: myIcon} )
+//         .bindPopup( '<a href="' + markers[i].url + '" target="_blank">' + markers[i].name + '</a>' + '<p>' + markers[i].cnt + '</p>' )
+//          .addTo( map );
+//    }
+//}
+
+//var myIcon = L.icon({
+//    iconUrl: myURL + 'images/pin24.png',
+//    iconRetinaUrl: myURL + 'images/pin48.png',
+//    iconSize: [29, 24],
+//    iconAnchor: [9, 21],
+//    popupAnchor: [0, -14]
+//});
+
+var cfg = {
+    "radius" : 2,
+    "maxOpacity" : 7,
+    "scaleRadius" : true,
+    "useLocalExtrema" : false,
+    latField : 'lat',
+    lngField : 'lng',
+    valueField : 'count'
 }
 
-var myIcon = L.icon({
-    iconUrl: myURL + 'images/pin24.png',
-    iconRetinaUrl: myURL + 'images/pin48.png',
-    iconSize: [29, 24],
-    iconAnchor: [9, 21],
-    popupAnchor: [0, -14]
-});
+var heatMapLayer = new HeatmapOverlay(cfg);
 
+var heatMap = new L.Map('map',{
+    center: new L.LatLng(19.93777, 73.5947),
+    minZoom: 2,
+    zoom: 12,
+    layers : [baseLayer, heatMapLayer]});
+heatMapLayer.setData(testData);

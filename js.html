@@ -1,124 +1,19 @@
 <html>
 <head>
-    <title>Amazon DynamoDB Sample</title>
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1.33.min.js"></script>
+    <title>Kumbh Mela Parvani 29th Aug</title>
 </head>
-<body>
-	<button title="Button" onclick=getIn() id="button_refresh">Refresh</button>
-    <div id="inDiv">
-        <table id="inTable" border="1" width="400">
-            <th id="inHeader">In</th>
-			<th id="timeHeader">Time</th>
-        </table>
-        <style type="text/css">
-            #inTable{
-                align-self: center
-                align-content: center
-                margin-top: 20px;
-                margin-left: 300px;
-            }
-			#button_refresh{
-				align-self: center
-				align-content: center
-				width: 80px
-				height: 50px
-			}
-        </style>
-    </div>
-<script type="text/javascript">
-	var refresh = document.getElementById('button_refresh');
-	getIn();
-    var once = 1;
-    var inArray = [];
-    var outArray = [];
-	var timeArray = [];
-    
-    var interval = setInterval(function () {getIn()}, 60000);
-	
-    var before = 0;
-    var n = 0;
-    var dbTable = document.getElementById("inTable");
-	var timeTable = document.getElementById("timeHeader");
-function getIn(){
-    var cred = new AWS.CognitoIdentityCredentials({
-    	IdentityPoolId: 'us-east-1:08e41de7-9cb0-40d6-9f04-6f8956ed25bb',
-    });
-    AWS.config.credentials = cred;
-    AWS.config.region = 'us-east-1';		
-    var params = {
-    	TableName: 'test_gate1',
-    	IndexName : 'Plotted-n-index',
-    	KeyConditions :
-    	{
-    		"Plotted" :
-    		{
-    			"AttributeValueList" : [
-    			{
-    				"N" : '1'
-    			}
-    			],
-    			"ComparisonOperator" : "EQ"
-    		}
-    	},
-    	ScanIndexForward: true
-    }
-    var db = new AWS.DynamoDB();
-    db.query(params, function(err, data){
-    	if(err) console.log(err, err.stack);
-    	else{
-    		if(data.Items.length > before){
-    		if(once == 1){
-    		for (var i=0; i < data.Items.length; i++) {
-    			if (data.Items[i].Date.S == "17") {
-					//code
-					//In Initialize
-    			inArray.push(data.Items[i].In.N);
-    			inArray.sort();
-                var inRow = dbTable.insertRow(-1);
-                var inCell = inRow.insertCell(0);
-                inCell.innerHTML = data.Items[i].In.N;
-                
-    			before = data.Items.length;
-    			once = 2;
-                //TimeStamp
-				timeArray.push(data.Items[i].Hour.S);
-				timeArray.sort();
-				//var timeRow = timeTable.insertRow(-1);
-				var timeCell = inRow.insertCell(1);
-				timeCell.innerHTML = data.Items[i].Hour.S+":"+data.Items[i].Minute.S+":"+data.Items[i].Second.S;
-				console.log(data.Items[i].Hour.S);
-				}
-			};
-			}
-			else if(once == 2){
-				if (data.Items[i].Date.S == "17") {
-					//code
-					//In
-                var row = dbTable.insertRow(-1);
-                var inCell = row.insertCell(0);
-                inCell.innerHTML = data.Items[before].In.N;
-				//console.log(data.Items[before].In.N);
-				//Time
-				var timeRow = dbTable.insertRow(-1);
-				var timeCell = row.insertCell(1);
-				timeCell.innerHTML = data.Items[before].Hour.S+":"+data.Items[before].Minute.S+":"+data.Items[before].Second.S;
-				}
-			}
-			}
-    	} 
-    });
-   }
-</script>	
-  <div>
-      <a href="https://plot.ly/~NilayKulkarni/401/" target="_blank"
-title="16 Aug Shravani Somwar Kapaleshwar" style="display: block;
-text-align: center;"><img src="https://plot.ly/~NilayKulkarni/401.png"
-alt="16 Aug Shravani Somwar Kapaleshwar" style="max-width: 100%;width:
-600px;"  width="600"
-onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-    <script data-plotly="NilayKulkarni:401"
-src="https://plot.ly/embed.js" async></script>
+<body>	
+  <div id="amr">
+    <a href="https://plot.ly/~NilayKulkarni/481/" target="_blank" title="Amardham Road" style="display: block; text-align: center;"><img src="https://plot.ly/~NilayKulkarni/481.png" alt="Amardham Road" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+    <script data-plotly="NilayKulkarni:481"  src="https://plot.ly/embed.js" async></script>
 </div>
-
+<div id="talk">
+    <a href="https://plot.ly/~NilayKulkarni/525/" target="_blank" title="Talkuteshwar Mandir Road" style="display: block; text-align: center;"><img src="https://plot.ly/~NilayKulkarni/525.png" alt="Talkuteshwar Mandir Road" style="max-width: 100%;width: 600px;"  width="600" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
+    <script data-plotly="NilayKulkarni:525"  src="https://plot.ly/embed.js" async></script>
+</div>
+<style>
+	#amr{width: auto; float: left;}
+	#talk{width: auto; float: right;}
+</style>
 </body>
 </html>
