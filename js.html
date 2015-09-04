@@ -1,14 +1,13 @@
 <html>
 <head>
+	<script src="bower_components/webcomponentsjs/webcomponents.min.js"></script>
+    <!-- 2. Load the component using an HTML Import -->
+    <link rel="import" href="elements/my-element.html">
+	
     <title>Kumbh Mela Parvani 29th Aug</title>
 </head>
 <body>	
-  <div id="amr">
-    <a href="https://plot.ly/~NilayKulkarni/551/" target="_blank" title="Rokdoba Exit Gate" style="display: block; text-align: center;"><img src="https://plot.ly/~NilayKulkarni/551.png" alt="Rokdoba Exit Gate" style="max-width: 100%;width: 1080px;"  width="1080" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-    <script data-plotly="NilayKulkarni:551"  src="https://plot.ly/embed.js" async></script>
-</div>
-<style>	
-	#amr{width: auto; float: center;}
-</style>
+	<my-element></my-element>
+  
 </body>
 </html>
